@@ -78,7 +78,38 @@ namespace EmployeePayrollProblem
             }
             return empPayrollList;
         }
+        public bool UpdateEmployeeSalary(EmpModel empModel)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("UpdateEmplyoeeSalary", connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@EmpID", empModel.ID);
+                    command.Parameters.AddWithValue("@Name", empModel.Name);
+                    command.Parameters.AddWithValue("@BasicPay", empModel.BasicPay);
+                    command.Parameters.AddWithValue("@Deduction", empModel.Deductions);
+                    command.Parameters.AddWithValue("@TaxablePay", empModel.TaxablePay);
+                    command.Parameters.AddWithValue("@IncomeTax", empModel.IncomeTax);
+                    command.Parameters.AddWithValue("@NetPay", empModel.NetPay);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw new EmpExceptioncs(EmpExceptioncs.ExceptionType.Salary_Not_Update, "Emplyoee Salary Not Updated");
+                return false;
+            }
+        }
     }
-    }
+}
 
 
