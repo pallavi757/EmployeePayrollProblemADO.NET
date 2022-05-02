@@ -14,8 +14,9 @@ namespace EmployeePayrollProblem
             Console.WriteLine("======================================");
             Console.WriteLine("Option 1 for Check connection ");
             Console.WriteLine("Option 2 for Get All Record For Employee ");
-            Console.WriteLine("option 3 for UpDateOnly salary");           
-            Console.WriteLine("option 0 for Exit");
+            Console.WriteLine("option 3 for UpDateOnly salary");
+            Console.WriteLine("option 4 for Get the Emplyoee Data in Date range");
+                Console.WriteLine("option 0 for Exit");
                 try
                 {
                     option = int.Parse(Console.ReadLine());
@@ -42,6 +43,11 @@ namespace EmployeePayrollProblem
                             };
                             empDetails.UpdateEmployeeSalary(empModel);
                             Console.WriteLine("Salary Updated successfully ");
+                            break;
+                        case 4:
+                            var fromDate = Convert.ToDateTime("2022-02-04");
+                            var ToDate = Convert.ToDateTime("2022-05-02");
+                            empDetails.GetEmplyeeDataInDateRange(fromDate,ToDate);
                             break;
                         case 0:
                             Console.WriteLine("Exit");

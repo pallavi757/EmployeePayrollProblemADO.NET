@@ -109,6 +109,49 @@ namespace EmployeePayrollProblem
                 return false;
             }
         }
+        public bool GetEmplyeeDataInDateRange(DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                EmpModel empModel = new EmpModel();
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.GetEmployeePayrollDataInDateRange", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FromDate", fromDate);
+                    command.Parameters.AddWithValue("@ToDate", toDate);
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            empModel.ID = dr.GetInt32(0);
+                            empModel.Name = dr.GetString(1);
+                            empModel.StartDate = dr.GetDateTime(2);
+                            empModel.Gender = dr.GetString(3);
+                            empModel.Phone = dr.GetInt64(4);
+                            empModel.Address = dr.GetString(5);
+                            empModel.Department = dr.GetString(6);
+                            empModel.BasicPay = dr.GetInt64(7);
+                            empModel.Deductions = dr.GetInt32(8);
+                            empModel.TaxablePay = dr.GetInt32(9);
+                            empModel.IncomeTax = dr.GetInt32(10);
+                            empModel.NetPay = dr.GetInt32(11); ;
+                            Console.WriteLine(empModel.ID + "," + empModel.Name + "," + empModel.StartDate + "," + empModel.Gender + "," + empModel.Phone + ","
+                            + empModel.Address + "," + empModel.Department + "," + empModel.BasicPay + "," + empModel.Deductions + "," + empModel.TaxablePay + "," + empModel.IncomeTax + "," + empModel.NetPay);
+                        }
+                        return true;
+                    }
+                    connection.Close();
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
 
