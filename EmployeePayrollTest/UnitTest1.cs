@@ -7,7 +7,7 @@ namespace EmployeePayrollTest
     public class Tests
     {
         EmpDetails empDetails;
-        EmpModel empModel;
+       EmpModel empModel;
         //Program program;
         [SetUp]
         public void Setup()
@@ -25,7 +25,7 @@ namespace EmployeePayrollTest
         public void Get_AllEmployeePayrollData()
         {
             var actual = empDetails.GetAllEmployeePayrollData();
-            Assert.AreEqual(3, actual.Count);
+            Assert.AreEqual(6, actual.Count);
         }
         /// <summary>
         /// TC3 - Update the Salary of Emplyoee
