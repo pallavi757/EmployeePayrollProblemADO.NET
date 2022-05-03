@@ -7,17 +7,19 @@ namespace EmployeePayrollTest
     public class Tests
     {
         EmpDetails empDetails;
+        EmpModel empModel;
         //Program program;
         [SetUp]
         public void Setup()
         {
             empDetails = new EmpDetails();
+            empModel = new EmpModel();
            // program = new Program();
         }
 
         [Test]
         /// <summary>
-        /// UC2 - Get the all Employee Payroll Data
+        /// TC2 - Get the all Employee Payroll Data
         /// </summary>
      
         public void Get_AllEmployeePayrollData()
@@ -26,7 +28,7 @@ namespace EmployeePayrollTest
             Assert.AreEqual(3, actual.Count);
         }
         /// <summary>
-        /// UC 3 - Update the Salary of Emplyoee
+        /// TC3 - Update the Salary of Emplyoee
         /// </summary>
         [Test]
         public void UpdateEmployeeSalary_ShouldReturn_True_AfterUpdate()
@@ -44,7 +46,7 @@ namespace EmployeePayrollTest
             Assert.AreEqual(expected, result);
         }
         /// <summary>
-        ///UC5- Get Employee Data In Date Range
+        ///TC5-Get Employee Data In Date Range
         ///</summary>
         [Test]
         public void Given_DateRange_GetEmployeePayrollData()
@@ -53,6 +55,27 @@ namespace EmployeePayrollTest
             var fromDate = Convert.ToDateTime("2022-02-04");
             var ToDate = Convert.ToDateTime("2022-05-02");
             bool result = empDetails.GetEmplyeeDataInDateRange(fromDate, ToDate);
+            Assert.AreEqual(expected, result);
+        }
+        /// <summary>
+        /// TC7-Add the Employee Data 
+        /// </summary>
+        [Test]
+        public void AddEmployeeData()
+        {
+            bool expected = true;
+            empModel.Name = "Nikita";
+            empModel.StartDate = Convert.ToDateTime("2022-03-09");
+            empModel.Gender = "F";
+            empModel.Phone = 889900766;
+            empModel.Address = "Pune";
+            empModel.Department = "IT";
+            empModel.BasicPay = 40000;
+            empModel.Deductions = 1000;
+            empModel.TaxablePay = 1000;
+            empModel.IncomeTax = 1000;
+            empModel.NetPay = 37000;
+            bool result = empDetails.AddEmployee (empModel);
             Assert.AreEqual(expected, result);
         }
     }

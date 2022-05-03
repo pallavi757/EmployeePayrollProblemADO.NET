@@ -152,6 +152,46 @@ namespace EmployeePayrollProblem
                 return false;
             }
         }
+        public bool AddEmployee(EmpModel emp)
+        {
+            try
+            {
+                using (sqlconnection)
+                {
+                    SqlCommand sqlCommand = new SqlCommand("dbo.insertDetails", sqlconnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@ID", emp.ID);
+                    sqlCommand.Parameters.AddWithValue("@Name", emp.Name);
+                    sqlCommand.Parameters.AddWithValue("@StartDate", emp.StartDate);
+                    sqlCommand.Parameters.AddWithValue("@Gender", emp.Gender);
+                    sqlCommand.Parameters.AddWithValue("@PhoneNumber", emp.Phone);
+                    sqlCommand.Parameters.AddWithValue("@Address", emp.Address);
+                    sqlCommand.Parameters.AddWithValue("@Department", emp.Department);
+                    sqlCommand.Parameters.AddWithValue("@BasicPay", emp.BasicPay);
+                    sqlCommand.Parameters.AddWithValue("@Deduction", emp.Deductions);
+                    sqlCommand.Parameters.AddWithValue("@TaxablePay", emp.TaxablePay);
+                    sqlCommand.Parameters.AddWithValue("@IncomeTax", emp.IncomeTax);
+                    sqlCommand.Parameters.AddWithValue("@NetPay", emp.NetPay);
+                    Console.WriteLine(emp.ID + "," + emp.Name + "," + emp.StartDate + "," + emp.Gender + "," + emp.Phone + ","
+                            + emp.Address + "," + emp.Department + "," + emp.BasicPay + "," + emp.Deductions + "," + emp.TaxablePay + "," + emp.IncomeTax + "," + emp.NetPay);
+                    sqlconnection.Open();
+
+                    var result = sqlCommand.ExecuteNonQuery();
+                    sqlconnection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                    sqlconnection.Close();
+                }
+                sqlconnection.Close();
+            }
+            catch (Exception)
+            {
+                throw new EmpExceptioncs(EmpExceptioncs.ExceptionType.Details_Not_Coorect_Format, "Details is not correct format");
+            }
+        }
     }
 }
 

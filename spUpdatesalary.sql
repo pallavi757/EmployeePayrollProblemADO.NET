@@ -22,3 +22,4 @@ update Payroll Set BasicPay = @BasicPay, Deduction = @Deduction, TaxablePay = @T
 left join DepartmentTable on Employee.EmpID = DepartmentTable.ID left join Payroll on Employee.EmpID = Payroll.ID;
 END
 GO
+exec [UpdateEmplyoeeSalary] 
